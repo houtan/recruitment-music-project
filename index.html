@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Music Search App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Minified Style -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <base href="/"> -->
+</head>
+<body ng-app="app" ng-controller="mainCtrl">
+  <div ng-view>
+  </div>
+  
+  <script src="bower_components/angular/angular.min.js"></script>
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script> -->
+  <script src="app/app.js"></script>
+  <script src="app/controllers/mainCtrl.js"></script>
+  
+  <!-- <environment names="Development,Staging,Production,Development"> -->
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<script src="bower_components/oclazyload/dist/ocLazyLoad.js"></script>
+	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+	<script src="bower_components/angular-inview/angular-inview.js"></script>
+	<script src="bower_components/angular-validation/dist/angular-validation.min.js"></script>
+	<script src="bower_components/angular-validation/dist/angular-validation-rule.min.js"></script>
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- </environment> -->
+	
+</body>
+</html>
