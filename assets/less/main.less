@@ -1,6 +1,18 @@
 @import "reset.less";
 @import "prefix.less";
 
+@font-face {
+	font-family: "Raleway";
+	font-style: normal;
+	font-weight: normal;
+    src: url("../Fonts/raleway/Raleway-Regular.eot");
+    src: url("../Fonts/raleway/Raleway-Regular.eot?#iefix") format("embedded-opentype"),
+    url("../Fonts/raleway/Raleway-Regular.woff2") format("woff2"),
+    url("../Fonts/raleway/Raleway-Regular.woff") format("woff"),
+    url("../Fonts/raleway/Raleway-Regular.ttf") format("truetype"),
+    url("../Fonts/raleway/Raleway-Regular.svg#Raleway-Regular") format("svg");
+}
+
 @screen-xs: 360px;
 @screen-sm: 768px;
 @screen-md: 992px;
@@ -10,11 +22,11 @@
 @text-color: #1A237E;
 
 @image-path: '../images/';
-@hero-image: '@{image-path}/hero-img@2x.png';
-@magnify-image: '@{image-path}/Magnify@2x.png';
-@artist-icon: '@{image-path}/artist-icon@2x.png';
-@music-icon: '@{image-path}/album-icon@2x.png';
-@cross-image: '@{image-path}/Cross@2x.png';
+@hero-image: '@{image-path}hero-img@2x.png';
+@magnify-image: '@{image-path}Magnify@2x.png';
+@artist-icon: '@{image-path}artist-icon@2x.png';
+@music-icon: '@{image-path}album-icon@2x.png';
+@cross-image: '@{image-path}Cross@2x.png';
 
 .gradient(@type; @colors; @dir: 0deg; @prefixes: webkit, moz, ms, o; @index: length(@prefixes)) when (@index > 0) {
     .gradient(@type; @colors; @dir; @prefixes; (@index - 1));   
@@ -37,9 +49,9 @@
   
   .container {
 	position: relative;
-	prefix(animation-timing-function: cubic-bezier(.27,1.65,.51,.96));
-	prefix(animation-name: topanim);
-	prefix(animation-duration: 1.0s);
+	animation-timing-function: cubic-bezier(.27,1.65,.51,.96);
+	animation-name: topanim;
+	animation-duration: 1.0s;
 	
 	.hero {
 		background-image: url(@hero-image);
@@ -53,9 +65,9 @@
 		width: 650px;
 		background-position-y: 50%;
 		height: 634px;
-		prefix(animation-timing-function: cubic-bezier(.25,1.55,.6,.83));
-		prefix(animation-name: heroanim);
-		prefix(animation-duration: 1.0s);
+		animation-timing-function: cubic-bezier(.25,1.55,.6,.83);
+		animation-name: heroanim;
+		animation-duration: 1.0s;
 		
 		@media screen and (max-width: @screen-sm) {
 		  width: 100%;
@@ -68,11 +80,11 @@
 		top: 40px;
 		width: 80px;
 		opacity: 0;
-		prefix(animation-name: logoanim);
-		prefix(animation-duration: 1.0s);
-		prefix(animation-timing-function: cubic-bezier(.23,.99,.51,.96));
-		prefix(animation-delay: 0.8s);
-		prefix(animation-fill-mode: forwards);
+		animation-name: logoanim;
+		animation-duration: 1.0s;
+		animation-timing-function: cubic-bezier(.23,.99,.51,.96);
+		animation-delay: 0.8s;
+		animation-fill-mode: forwards;
 	}
   }
 }
@@ -505,7 +517,8 @@ button:hover i {
   height: 328px;
   display: inline-block;
   background: #ffffff;
-  box-shadow: 0px 2px 20px rgba(170,0,0,0);
+  /*box-shadow: 0px 2px 20px rgba(170,0,0,0);*/
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.20);
   margin: 60px 15px 0px 15px;
   overflow: hidden;
   position: relative;
