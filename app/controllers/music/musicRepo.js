@@ -7,13 +7,13 @@
 		var CLIENT_ID = '';
 		var REDIRECT_URI = '';
 
-		//if (location.host == 'localhost:8080') {
+		if (location.host == 'localhost:8080') {
 			CLIENT_ID =	'3909233d840a44699f6e1ffec6f26701';
 			REDIRECT_URI = 'http://localhost:8080/callback'; ///#!/start
-		//} else {
-		//	CLIENT_ID = '3909233d840a44699f6e1ffec6f26701';
-		//	REDIRECT_URI = 'http://www.music.com/callback.html';
-		//}
+		} else {
+			CLIENT_ID = '3909233d840a44699f6e1ffec6f26701';
+			REDIRECT_URI = 'https://houtan.github.io/recruitment-music-project/callback';
+		}
 		
 		function callEndpoint(endpoint, method, params, data, headers) {
             var deferred = $q.defer();

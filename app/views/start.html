@@ -3,11 +3,11 @@
 		<div class="hero"></div>
 		<div id="page-arrow">
 			<a ng-click="scrollTo('search')">
-				<img src="assets/images/page-1.png">
+				<img src="assets/Images/page-1.png">
 			</a>
 		</div>
 		<span id="powered-by-Spotify">Powered by Spotify</span>
-		<img class="logo" src="assets/images/gl-logo@2x.png">
+		<img class="logo" src="assets/Images/gl-logo@2x.png">
 	</div>
 </div>
 <div id="search-container">
@@ -33,7 +33,11 @@
 		<div class="item" ng-repeat="artist in result.artists">
 			<div class="item-image">
 				<a class="pointer" ng-click="showArtistInfo(artist)">
-					<img ng-src="{{artist.images.length > 1 ? artist.images[1].url: artist.images[0].url}}">
+					<img class="image" ng-src="{{artist.images.length > 1 ? artist.images[1].url: artist.images[0].url}}">
+					<div class="select">
+						<img src="assets/Images/Bitmap@2x.png">
+						<span>View Albums</span>
+					</div>
 					<div class="mask"></div>
 					<div class="artist-icon"></div>
 				</a>
@@ -43,7 +47,11 @@
 		<div class="item" ng-repeat="album in result.albums">
 			<div class="item-image">
 				<a class="pointer" ng-click="showAlbumInfo(album)">
-					<img ng-src="{{album.images.length > 1 ? album.images[1].url: album.images[0].url}}">
+					<img class="image" ng-src="{{album.images.length > 1 ? album.images[1].url: album.images[0].url}}">
+					<div class="select">
+						<img src="assets/Images/Bitmap@2x.png">
+						<span>View Tracks</span>
+					</div>
 					<div class="mask"></div>
 					<div class="music-icon"></div>
 				</a>
