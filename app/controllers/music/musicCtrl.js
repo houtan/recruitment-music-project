@@ -41,7 +41,7 @@ function ($scope, musicRepo, $routeParams, $location, $timeout, $filter, $rootSc
 		{
 		  $scope.expires = true;
 		  $scope.authError = true;
-		  musicRepo.authorize();
+		  /*musicRepo.authorize();*/
 		}
 	  }
     };
