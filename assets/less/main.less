@@ -45,13 +45,13 @@
   background: @include background-image(linear-gradient(top, rgba(206,66,131,1) 0%, rgba(178,69,93,1) 100%)); */
   .gradient(linear; rgba(178,69,93,1) 0%, rgba(206,66,131,1) 100%);
   min-height: 645px;
-  perspective: 600px;
+  .prefix(perspective, 600px);
   
   .container {
 	position: relative;
-	animation-timing-function: cubic-bezier(.27,1.65,.51,.96);
-	animation-name: topanim;
-	animation-duration: 1.0s;
+	.prefix(animation-timing-function, cubic-bezier(.27,1.65,.51,.96));
+	.prefix(animation-name, topanim);
+	.prefix(animation-duration, 1.0s);
 	
 	.hero {
 		background-image: url(@hero-image);
@@ -65,9 +65,9 @@
 		width: 650px;
 		background-position-y: 50%;
 		height: 634px;
-		animation-timing-function: cubic-bezier(.25,1.55,.6,.83);
-		animation-name: heroanim;
-		animation-duration: 1.0s;
+		.prefix(animation-timing-function, cubic-bezier(.25,1.55,.6,.83));
+		.prefix(animation-name, heroanim);
+		.prefix(animation-duration, 1.0s);
 		
 		@media screen and (max-width: @screen-sm) {
 		  width: 100%;
@@ -80,11 +80,11 @@
 		top: 40px;
 		width: 80px;
 		opacity: 0;
-		animation-name: logoanim;
-		animation-duration: 1.0s;
-		animation-timing-function: cubic-bezier(.23,.99,.51,.96);
-		animation-delay: 0.8s;
-		animation-fill-mode: forwards;
+		.prefix(animation-name, logoanim);
+		.prefix(animation-duration, 1.0s);
+		.prefix(animation-timing-function, cubic-bezier(.23,.99,.51,.96));
+		.prefix(animation-delay, 0.8s);
+		.prefix(animation-fill-mode, forwards);
 	}
   }
 }
@@ -108,10 +108,10 @@ body, span, p, button, h6 {
   .loader {
     border: 6px solid #f3f3f3;
     border-top: 6px solid #3498db;
-    border-radius: 50%;
+    .prefix(border-radius, 50%);
     width: 45px;
     height: 45px;
-    animation: spin 2s linear infinite;
+    .prefix(animation, spin 2s linear infinite);
 	float: left;
   }
   
@@ -249,11 +249,11 @@ body, span, p, button, h6 {
   right: 0px;
   position: absolute;
   opacity: 0;
-  animation-name: spotifyanim;
-  animation-duration: 1.0s;
-  animation-timing-function: cubic-bezier(.23,.99,.51,.96);
-  animation-delay: 0.8s;
-  animation-fill-mode: forwards;
+  .prefix(animation-name, spotifyanim);
+  .prefix(animation-duration, 1.0s);
+  .prefix(animation-timing-function, cubic-bezier(.23,.99,.51,.96));
+  .prefix(animation-delay, 0.8s);
+  .prefix(animation-fill-mode, forwards);
 }
 
 #page-arrow {
@@ -269,11 +269,11 @@ body, span, p, button, h6 {
 	position: relative;
 	bottom: 0px;
 	opacity: 0;
-	animation-name: arrowanim;
-	animation-duration: 6s;
-	animation-timing-function: cubic-bezier(.27,1.65,.51,.96); /*cubic-bezier(.23,.99,.51,.96);*/
-	animation-iteration-count: infinite;
-	animation-delay: 1.5s;
+	.prefix(animation-name, arrowanim);
+	.prefix(animation-duration, 6s);
+	.prefix(animation-timing-function, cubic-bezier(.27,1.65,.51,.96)); /*cubic-bezier(.23,.99,.51,.96));*/
+	.prefix(animation-iteration-count, infinite);
+	.prefix(animation-delay, 1.5s);
 	/*animation-fill-mode: forwards;*/
 	cursor: pointer;
   }
@@ -365,7 +365,8 @@ button i {
   padding-right: 0px;
   opacity: 0;
   width: 0;
-  transition: padding-right 0.5s, opacity 0.5s, width 0.5s;
+  @buttonValue: padding-right 0.5s, opacity 0.5s, width 0.5s;
+  .prefix(transition, @buttonValue);
 }
 
 button:hover i {
@@ -381,17 +382,17 @@ button:hover i {
   margin: auto;
   top: -50px;
   opacity: 0;
-  transition: top .5s;
+  .prefix(transition, top .5s);
   left: 0;
   right: 0;
   text-align: center;
   background-color: #630427;
-  border-radius: 5px;
+  .prefix(border-radius, 5px);
   font-family: Raleway;
   
-  animation-name: hideerroranim;
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
+  .prefix(animation-name, hideerroranim);
+  .prefix(animation-duration, 0.3s);
+  .prefix(animation-fill-mode, forwards);
   
   h2 {
 	color: white;
@@ -416,11 +417,11 @@ button:hover i {
 }
 
 .show {
-  animation-name: showerroranim;
-  animation-duration: 0.7s;
-  animation-delay: 1.2s;
-  animation-timing-function: cubic-bezier(.23,.99,.51,.96);
-  animation-fill-mode: forwards;
+  .prefix(animation-name, showerroranim);
+  .prefix(animation-duration, 0.7s);
+  .prefix(animation-delay, 1.2s);
+  .prefix(animation-timing-function, cubic-bezier(.23,.99,.51,.96));
+  .prefix(animation-fill-mode, forwards);
 }
 
 #search-result {
@@ -455,7 +456,7 @@ button:hover i {
 }
 
 .item-image {
-  border-radius: 3px;
+  .prefix(border-radius, 3px);
   height: 263px;
   background: rgba(102,0,0,0);
   overflow-y: hidden;
@@ -471,7 +472,7 @@ button:hover i {
 	  opacity: 0.2;
 	  bottom: 0px;
 	  z-index: 9999999999999;
-	  filter: brightness(2.9);
+	  .prefix(filter, brightness(2.9));
 	}
   }*/
   
@@ -512,13 +513,13 @@ button:hover i {
 }
 
 .item {
-  border-radius: 3px;
+  .prefix(border-radius, 3px);
   width: 263px;
   height: 328px;
   display: inline-block;
   background: #ffffff;
-  /*box-shadow: 0px 2px 20px rgba(170,0,0,0);*/
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.20);
+  /*.prefix(box-shadow, 0px 2px 20px rgba(170,0,0,0));*/
+  .prefix(box-shadow, 0 2px 20px rgba(0, 0, 0, 0.20));
   margin: 60px 15px 0px 15px;
   overflow: hidden;
   position: relative;
@@ -549,13 +550,13 @@ button:hover i {
 }
 
 .dialog {
-  border-radius: 3px;
+  .prefix(border-radius, 3px);
   /*display: none;*/
   width: 750px;
   height: 597px; /*797px*/
   background: #ffffff;
-  /*box-shadow: 0px 2px 20px rgba(170,0,0,0);*/
-  box-shadow: 0 2px 20px rgba(170,0,0,0.36);
+  /*.prefix(box-shadow, 0px 2px 20px rgba(170,0,0,0));*/
+  .prefix(box-shadow, 0 2px 20px rgba(170,0,0,0.36));
   position: fixed;
   margin: auto;
   visibility: hidden;
@@ -563,11 +564,12 @@ button:hover i {
   left: 0;
   right: 0;
   opacity: 0;
-  transition: opacity .5s, top .5s, visibility .5s;
+  @dialogValue: opacity .5s, top .5s, visibility .5s;
+  .prefix(transition, @dialogValue);
   
   .header {
     position: relative;
-    border-radius: 3px;
+    .prefix(border-radius, 3px);
     width: 100%;
     height: 320px;
 	background-color: silver;
@@ -582,7 +584,7 @@ button:hover i {
 	  font-style: normal;
 	  font-stretch: normal;
 	  font-weight: 400;
-	  text-shadow: 0px 2px 7px #333441;
+	  .prefix(text-shadow, 0px 2px 7px #333441);
 	  bottom: 50px;
       left: 50px;
 	  position: absolute;
@@ -686,7 +688,7 @@ button:hover i {
 }
 
 #loadMoreButton {
-  border-radius: 30px;
+  .prefix(border-radius, 30px);
   width: 180px;
   height: 40px;
   background: #d05d84;
@@ -699,7 +701,7 @@ button:hover i {
   font-weight: 400;
   margin: 30px 0 30px 0px;
   cursor: pointer;
-  transition: background-color .3s;
+  .prefix(transition, background-color .3s);
   
   &:hover {
 	background-color: #b71b51;
