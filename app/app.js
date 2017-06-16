@@ -53,11 +53,9 @@ var app = angular
                     return $ocLazyLoad.load([{
                         name: 'app',
                         files: [
-							'/app/services/scrollerService.js',
-                            '/app/controllers/music/musicCtrl.js',
-							'/app/controllers/music/musicRepo.js'
-                            // '/app/controllers/mainRepo.js',
-                            //'/plugins/something...js'
+							'app/services/scrollerService.js',
+                            'app/controllers/music/musicCtrl.js',
+							'app/controllers/music/musicRepo.js'
                         ]
                     }]);
                 }]
@@ -84,7 +82,7 @@ var app = angular
             }
         })*/
         .otherwise({
-            redirectTo: '/'
+            redirectTo: '/start'
         });
 });
 
