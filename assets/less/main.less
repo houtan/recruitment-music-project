@@ -280,7 +280,7 @@ body, span, p, button, h6 {
 }
 
 #search-container {
-	height: 80px;
+	height: 79px;
     background-color: #323440;
 	
 	div {
@@ -306,7 +306,7 @@ input {
     border-radius: 30px;
     /*width: 640px;*/
 	width: 100%;
-    height: 50px;
+    height: 45px;
     background: #ffffff;
     padding-left: 26px;
     color: #7f6c6c;
@@ -331,11 +331,11 @@ input {
 	
 	button {
 	  position: absolute;
-	  right: -24px;
-	  top: 16px;
+	  right: -23px;
+      top: 19px;
 	  border-radius: 30px;
 	  width: 120px;
-	  height: 46px;
+	  height: 39px;
 	  background: #d05d84;
 	  border-style: none;
 	  color: #ffffff;
@@ -346,6 +346,7 @@ input {
 	  font-stretch: normal;
 	  font-weight: 400;
 	  text-transform: uppercase;
+	  line-height: 40px;
 	  
 	  @media screen and (max-width: @screen-sm) {
 	    right: 0;
@@ -450,8 +451,16 @@ button:hover i {
     text-align: center;
 	
 	span {
-		color: #464857;
-		font-size: 24.0px;
+	  color: #464857;
+	  font-size: 24.0px;
+	}
+	
+	@media screen and (max-width: @screen-sm) {
+	  width: 295px;
+	  
+	  span {
+	    font-size: 22px
+	  }
 	}
 }
 
@@ -498,8 +507,14 @@ button:hover i {
 
   .image {
 	width: 100%;
+	height: 263px;
 	.prefix(transition, filter .5s);
 	.prefix(filter, blur(0));
+	overflow-y: hidden;
+	  
+	img {
+	  width: 100%;
+	}
 	
 	@media screen and (max-width: @screen-sm) {
 	  width: 80px;
