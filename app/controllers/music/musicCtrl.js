@@ -94,6 +94,9 @@ angular.module("app").controller("musicCtrl",
 	}
 	
 	$scope.showAlbumInfo = function (album) {
+		$scope.tracks = null;
+		$scope.previewImage = null;
+		$scope.selectedArtist = "Fetching Data ...";
 		$scope.selectedType = 'album';
 		$scope.showDialog = true;
 		$scope.isInfoLoading = true;
@@ -109,6 +112,9 @@ angular.module("app").controller("musicCtrl",
 	}
 	
 	$scope.showArtistInfo = function (artist) {
+		$scope.albums = null;
+		$scope.previewImage = null;
+		$scope.selectedArtist = "Fetching Data ...";
 		$scope.selectedType = 'artist';
 		$scope.showDialog = true;
 		$scope.isInfoLoading = true;
