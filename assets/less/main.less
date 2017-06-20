@@ -626,6 +626,7 @@ button:hover i {
   opacity: 0;
   @dialogValue: opacity .5s, top .5s, visibility .5s;
   .prefix(transition, @dialogValue);
+  z-index: 2;
   
   .header {
     position: relative;
@@ -678,6 +679,18 @@ button:hover i {
 	.tracks {
 	  overflow-y: scroll;
       height: 180px;
+	  
+	  @media only screen and (max-resolution: 80dpi) {
+	    height: 270px;
+	  }
+	  
+	  @media only screen and (max-resolution: 75dpi) {
+	    height: 370px;
+	  }
+	  
+	  @media only screen and (max-resolution: 50dpi) {
+	    height: 580px;
+	  }
 	}
 	
 	.track {
@@ -687,7 +700,7 @@ button:hover i {
 	  font-stretch: normal;
 	  font-weight: 400;
 	  margin-top: 19px;
-	  display: block;
+	  display: inline-block;
 	}
 	
 	.time {
@@ -696,6 +709,7 @@ button:hover i {
       font-style: normal;
       font-stretch: normal;
       font-weight: 400;
+	  display: block;
 	}
 	
 	hr {
@@ -719,6 +733,18 @@ button:hover i {
   
   @media screen and (max-width: @screen-sm) {
     width: 85%;
+  }
+  
+  @media only screen and (max-resolution: 80dpi) {
+	height: 700px;
+  }
+  
+  @media only screen and (max-resolution: 75dpi) {
+	height: 800px;
+  }
+  
+  @media only screen and (max-resolution: 50dpi) {
+	height: 1000px;
   }
 }
 
@@ -788,4 +814,21 @@ button:hover i {
 
 .pointer {
   cursor: pointer;
+}
+
+.backdrop {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(76, 63, 93, 0.51);
+  z-index: 1;
+  position: fixed;
+  opacity: 0;
+  visibility: hidden;
+  .prefix(transition, opacity .5s);
+  z-index: 1;
+}
+
+.shown {
+  opacity: 1;
+  visibility: visible;
 }

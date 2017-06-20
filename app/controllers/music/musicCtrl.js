@@ -1,6 +1,6 @@
 angular.module("app").controller("musicCtrl",
     ["$scope", "musicRepo", "$routeParams", "$location", "$timeout", "$filter", "$rootScope", "$window", "$q", "scroller",
-function ($scope, musicRepo, $routeParams, $location, $timeout, $filter, $rootScope, $window , $q, scroller) {
+	function ($scope, musicRepo, $routeParams, $location, $timeout, $filter, $rootScope, $window , $q, scroller) {
 
 	$scope.cachedData = [];
 	$scope.result = {};
@@ -18,13 +18,17 @@ function ($scope, musicRepo, $routeParams, $location, $timeout, $filter, $rootSc
 	$scope.selectedArtist = '';
 	$scope.isInfoLoading = false;
 	$scope.isLoading = false;
+	$scope.isLoaded = false;
 
     console.log('init');
 	
 	$scope.scrollTo = function (element){
-      // $location.hash('');
       scroller.scrollTo(element);
     };
+	
+	$scope.$on('$viewContentLoaded', function(){
+      $scope.isLoaded = true;
+	});
 	
 	$scope.authorize = function () {
 	  $scope.access_token = musicRepo.getAccessToken();
@@ -34,16 +38,15 @@ function ($scope, musicRepo, $routeParams, $location, $timeout, $filter, $rootSc
 		$scope.authError = true;
 		musicRepo.authorize();
 	  }
-	  else
+	  /*else
 	  {
 		$scope.expireDate = musicRepo.getTokenExpireDate();
 		if ($scope.expireDate === '' || $scope.expireDate === null)
 		{
 		  $scope.expires = true;
 		  $scope.authError = true;
-		  /*musicRepo.authorize();*/
 		}
-	  }
+	  }*/
     };
 	
 	$scope.search = function () {
@@ -74,12 +77,20 @@ function ($scope, musicRepo, $routeParams, $location, $timeout, $filter, $rootSc
     };
 	
 	$scope.handleError = function (error) {
+		$scope.closed = false;
 		if (error.data)
+		{
 			$scope.errorMessage = error.data.error.message;
-		  else
-			$scope.errorMessage = "unknown error !";
-		
-		  $scope.isLoading = false;
+			if (error.data.error.message.indexOf("expire") !== -1)
+			{
+				$scope.authError = true;
+				musicRepo.authorize();
+			}
+		}
+	    else
+		  $scope.errorMessage = "unknown error !";
+	
+	    $scope.isLoading = false;
 	}
 	
 	$scope.showAlbumInfo = function (album) {
@@ -123,8 +134,6 @@ function ($scope, musicRepo, $routeParams, $location, $timeout, $filter, $rootSc
 				$scope.updateArtistsResult();
 				$scope.isLoading = false;
 			});
-			
-			// $scope.updateArtistsResult();
 		}
 		else
 			$scope.updateArtistsResult();
@@ -138,8 +147,6 @@ function ($scope, musicRepo, $routeParams, $location, $timeout, $filter, $rootSc
 				$scope.updateAlbumsResult();
 				$scope.isLoading = false;
 			});
-			
-			// $scope.updateAlbumsResult();
 		}
 		else
 			$scope.updateAlbumsResult();
