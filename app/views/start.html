@@ -82,7 +82,7 @@
 	<!-- Dialog -->
 	<div class="dialog" ng-class="{'active':showDialog}">
 		<div class="header" style="background-image:url('{{previewImage!==null?previewImage:''}}')">
-			<h6>{{isInfoLoading?'Fetching Data ...':selectedArtist}}</h6>
+			<h6>{{isInfoLoading?'Loading...':selectedArtist}}</h6>
 			<span class="close" ng-click="showDialog=false"></span>
 		</div>
 		<div class="content">

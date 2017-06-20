@@ -559,11 +559,16 @@ button:hover i {
   position: relative;
  
   .mask {
-	width: 268px;
-	height: 268px;
+	width: 263px;
+	height: 263px;
 	background-color: rgba(76, 63, 93, 0.3);
 	position: absolute;
 	top: 0;
+	
+	@media screen and (max-width: @screen-sm) {
+	  width: 80px;
+	  height: 80px;
+	}
   }
 
   &:hover {
