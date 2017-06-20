@@ -1,44 +1,14 @@
 'use strict';
 
-///**
-// * @ngdoc overview
-// * @name newappApp
-// * @description
-// * # newappApp
-// *
-// * Main module of the application.
-// */
-/*var app = angular.module("app", ["ngRoute"]);
-app.config(function ($routeProvider) {
-    $routeProvider
-    .when("/", {
-        templateUrl: "app/views/start.html",
-		controller: "musicCtrl"
-    })
-    .when("/start", {
-        templateUrl: "app/views/start.html",
-        controller: "musicCtrl"
-    })
-});*/
-
 var app = angular
   .module('app', [
-    //'ngAnimate',
-    //'ngCookies',
-    //'ngResource',
-    'ngRoute',
-    //'ngSanitize',
-    //'ngTouch',
+    'ngCookies',
     'oc.lazyLoad',
     'angular-inview',
     'validation',
-    'validation.rule'
+    'validation.rule',
+	'ngRoute'
   ])
-  /*.config(function () {
-    SpotifyProvider.setClientId('123456789123456789');
-    SpotifyProvider.setRedirectUri('http://example.com/callback.html');
-    SpotifyProvider.setScope('playlist-read-private');
-  })*/
 .config(function ($routeProvider) {
 
     $routeProvider
@@ -53,34 +23,20 @@ var app = angular
                     return $ocLazyLoad.load([{
                         name: 'app',
                         files: [
-							'app/services/scrollerService.js',
-                            'app/controllers/music/musicCtrl.js',
-							'app/controllers/music/musicRepo.js'
-                        ]
-                    }]);
+							'app/services/scrollerService.js'
+						]
+                    }]).then(function () {
+						return $ocLazyLoad.load([{
+							name: 'app',
+							files: [
+								'app/controllers/music/musicCtrl.js',
+								'app/controllers/music/musicRepo.js'
+							]
+						}]);
+					});
                 }]
             }
         })
-		/*.when('/', {
-            templateUrl: 'app/views/start.html',
-            controller: 'musicCtrl',
-            data: {
-                header: 'header-transparent'
-            },
-            resolve: {
-                lazy: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([{
-                        name: 'app',
-                        files: [
-                            '/app/controllers/music/musicCtrl.js',
-							'/app/controllers/music/musicRepo.js'
-                            // '/app/controllers/mainRepo.js',
-                            //'/plugins/something...js'
-                        ]
-                    }]);
-                }]
-            }
-        })*/
         .otherwise({
             redirectTo: '/start'
         });
@@ -91,8 +47,6 @@ app.config([
         $ocLazyLoadProvider.config({
             debug: true,
             events: true,
-            /* modules: [
-            ]*/
         });
     }
 ]);
