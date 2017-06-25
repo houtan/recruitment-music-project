@@ -32,39 +32,23 @@
 			<span>loading data ...</span>
 		</div>
 		<div ng-if="result">
-			<div class="item" ng-repeat="artist in result.artists">
+			<div class="item" ng-repeat="item in result.all">
 				<div class="item-image">
-					<a class="pointer" ng-click="showArtistInfo(artist)">
+					<a class="pointer" ng-click="item.type==='artist'?showArtistInfo(item):showAlbumInfo(item)">
 						<div class="image">
-							<img ng-src="{{artist.images.length > 1 ? artist.images[1].url: artist.images[0].url}}">
+							<img ng-src="{{item.images.length > 1 ? item.images[1].url: item.images[0].url}}">
 						</div>
 						<div class="select">
 							<img src="assets/Images/Bitmap@2x.png">
-							<span>View Albums</span>
+							<span>{{item.type==="artist"?'View Albums':'View Tracks'}}</span>
 						</div>
 						<div class="mask"></div>
-						<div class="artist-icon"></div>
+						<div ng-class="{'artist-icon': item.type==='artist', 'music-icon': item.type==='album'}"></div>
 					</a>
 				</div>
-				<span>{{artist.name}}</span>
+				<span>{{item.name}}</span>
 			</div>
-			<div class="item" ng-repeat="album in result.albums">
-				<div class="item-image">
-					<a class="pointer" ng-click="showAlbumInfo(album)">
-						<div class="image">
-							<img ng-src="{{album.images.length > 1 ? album.images[1].url: album.images[0].url}}">
-						</div>
-						<div class="select">
-							<img src="assets/Images/Bitmap@2x.png">
-							<span>View Tracks</span>
-						</div>
-						<div class="mask"></div>
-						<div class="music-icon"></div>
-					</a>
-				</div>
-				<span>{{album.name}}</span>
-			</div>
-			<div ng-if="result.artists.length>0||result.albums.length>0">
+			<div ng-if="(cachedData.all.length > 0) || (cachedData.next_artists || cachedData.next_albums)">
 				<button ng-if="!isLoading" id="loadMoreButton" type="button" ng-click="loadMore()">show me more!</button>
 				<div ng-if="isLoading" class="lazyload-container">
 					<div class="loader-container">
@@ -73,8 +57,11 @@
 					</div>
 				</div>
 			</div>
+			<div ng-if="(cachedData.all.length === 0 && result.all.length > 0 && (result.next_artists === null && result.next_albums === null))">
+				<button id="gotoTopButton" type="button" ng-click="scrollTo('search')">back to top</button>
+			</div>
 		</div>
-		<div ng-if="result.artists.length===0&&result.albums.length===0" class="result-text">
+		<div ng-if="result.all.length===0" class="result-text">
 			<span>Your results will appear here</span>
 		</div>
 	</div>
