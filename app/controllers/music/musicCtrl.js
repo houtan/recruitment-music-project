@@ -3,10 +3,11 @@ angular.module("app").controller("musicCtrl",
 	function ($scope, musicRepo, $routeParams, $location, $timeout, $filter, $rootScope, $window , $q, scroller) {
 
 	$scope.cachedData = [];
+	$scope.cachedData.all = [];
 	$scope.result = {};
 	$scope.result.artists = [];
 	$scope.result.albums = [];
-	$scope.length = 6;
+	$scope.length = 12;
 	$scope.artistName = '';
 	$scope.tracks = {};
 	$scope.albums = {};
@@ -49,15 +50,23 @@ angular.module("app").controller("musicCtrl",
 	  }*/
     };
 	
-	$scope.search = function () {
+	$scope.resetValues = function () {
 	  $scope.errorMessage = '';
 	  $scope.result.artists = [];
 	  $scope.result.albums = [];
+	  $scope.result.all = [];
+	  $scope.cachedData = [];
+	  $scope.cachedData.all = [];
+	}
+	
+	$scope.search = function () {
+	  $scope.resetValues();
 	  $scope.isLoading = true;
 	  musicRepo.search($scope.artistName, 'artist', $scope.access_token).then(function (result){
 		  console.log(result);
-		  $scope.cachedData.artists = result.data.artists;
-		  $scope.updateArtistsResult();
+		  result.data.artists.type = 'artist';
+		  $scope.mergeResults(result.data.artists);
+		  $scope.updateResult();
 		  $scope.isLoading = false;
 	  },
 	  function (error){
@@ -67,8 +76,9 @@ angular.module("app").controller("musicCtrl",
 	  $scope.isLoading = true;
 	  musicRepo.search($scope.artistName, 'album', $scope.access_token).then(function (result){
 		  console.log(result);
-		  $scope.cachedData.albums = result.data.albums;
-		  $scope.updateAlbumsResult();
+		  result.data.albums.type = 'album';
+		  $scope.mergeResults(result.data.albums);
+		  $scope.updateResult();
 		  $scope.isLoading = false;
 	  },
 	  function (error){
@@ -93,17 +103,17 @@ angular.module("app").controller("musicCtrl",
 	    $scope.isLoading = false;
 	}
 	
-	$scope.showAlbumInfo = function (album) {
+	$scope.showAlbumInfo = function (item) {
 		$scope.tracks = null;
 		$scope.previewImage = null;
 		$scope.selectedArtist = "Loading...";
 		$scope.selectedType = 'album';
 		$scope.showDialog = true;
 		$scope.isInfoLoading = true;
-		musicRepo.call(album.href, $scope.access_token).then(function (result){
+		musicRepo.call(item.href, $scope.access_token).then(function (result){
 			$scope.tracks = result.data.tracks;
-			$scope.previewImage = album.images[0].url;
-			$scope.selectedArtist = album.artists[0].name;
+			$scope.previewImage = item.images[0].url;
+			$scope.selectedArtist = item.artists[0].name;
 			$scope.isInfoLoading = false;
 		}, function (error) {
 			$scope.showDialog = false;
@@ -111,17 +121,17 @@ angular.module("app").controller("musicCtrl",
 		});
 	}
 	
-	$scope.showArtistInfo = function (artist) {
+	$scope.showArtistInfo = function (item) {
 		$scope.albums = null;
 		$scope.previewImage = null;
 		$scope.selectedArtist = "Loading...";
 		$scope.selectedType = 'artist';
 		$scope.showDialog = true;
 		$scope.isInfoLoading = true;
-		musicRepo.call(artist.href+"/albums?offset=0&limit=50&album_type=album", $scope.access_token).then(function (result){
+		musicRepo.call(item.href+"/albums?offset=0&limit=50&album_type=album", $scope.access_token).then(function (result){
 			$scope.albums = result.data;
-			$scope.previewImage = artist.images[0].url;
-			$scope.selectedArtist = artist.name;
+			$scope.previewImage = item.images[0].url;
+			$scope.selectedArtist = item.name;
 			$scope.isInfoLoading = false;
 		}, function (error) {
 			$scope.showDialog = false;
@@ -131,39 +141,50 @@ angular.module("app").controller("musicCtrl",
 	
 	$scope.loadMore = function () {
 		
-		if ($scope.cachedData.artists.items.length === 0) {
-			if ($scope.cachedData.artists.next)
+		if ($scope.cachedData.all.length === 0) {
+			if ($scope.cachedData.next_artists || $scope.cachedData.next_albums)
 				$scope.isLoading = true;
 			
-			musicRepo.call($scope.cachedData.artists.next, $scope.access_token).then(function (result){
-				$scope.cachedData.artists = result.data.artists;
-				$scope.updateArtistsResult();
-				$scope.isLoading = false;
-			});
-		}
-		else
-			$scope.updateArtistsResult();
-		
-		if ($scope.cachedData.albums.items.length === 0) {
-			if ($scope.cachedData.albums.next)
-				$scope.isLoading = true;
+			if ($scope.cachedData.next_artists)
+				musicRepo.call($scope.cachedData.next_artists, $scope.access_token).then(function (result){
+				
+					result.data.artists.type = 'artist';
+					$scope.mergeResults(result.data.artists);
+					$scope.updateResult();
+					$scope.isLoading = false;
+				}, function (error) {
+					$scope.isLoading = false;
+				});
 			
-			musicRepo.call($scope.cachedData.albums.next, $scope.access_token).then(function (result){
-				$scope.cachedData.albums = result.data.albums;
-				$scope.updateAlbumsResult();
-				$scope.isLoading = false;
-			});
+			if ($scope.cachedData.next_albums)
+				musicRepo.call($scope.cachedData.next_albums, $scope.access_token).then(function (result){
+
+					result.data.albums.type = 'album';
+					$scope.mergeResults(result.data.albums);
+					$scope.updateResult();
+					$scope.isLoading = false;
+				}, function (error) {
+					$scope.isLoading = false;
+				});
 		}
 		else
-			$scope.updateAlbumsResult();
+			$scope.updateResult();
 	};
 	
-	$scope.updateArtistsResult = function () {
-		$scope.result.artists = $scope.result.artists.concat($scope.cachedData.artists.items.splice(0, $scope.length));
+	$scope.mergeResults = function (list) {
+		$scope.cachedData.all = $scope.cachedData.all.concat(list.items);
+		
+		if (list.type === 'artist')
+			$scope.cachedData.next_artists = list.next;
+		
+		if (list.type === 'album')
+			$scope.cachedData.next_albums = list.next;
 	}
 	
-	$scope.updateAlbumsResult = function () {
-		$scope.result.albums = $scope.result.albums.concat($scope.cachedData.albums.items.splice(0, $scope.length));
+	$scope.updateResult = function () {
+		$scope.result.all = $scope.result.all.concat($scope.cachedData.all.splice(0, $scope.length));
+		$scope.result.next_artists = $scope.cachedData.next_artists;
+		$scope.result.next_albums = $scope.cachedData.next_albums;
 	}
 	
 	$scope.authorize();
