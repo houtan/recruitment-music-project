@@ -1,5 +1,6 @@
 @import "reset.less";
 @import "prefix.less";
+@import "scrollbar.less";
 
 @font-face {
 	font-family: "Raleway";
@@ -770,9 +771,13 @@ button:hover i {
   position: absolute;
   margin-left: 15px;
   z-index: 9999;
+  
+  @media screen and (max-width: @screen-sm) {
+    width: 90%;
+  }
 }
 
-#loadMoreButton {
+#loadMoreButton, #gotoTopButton {
   .prefix(border-radius, 30px);
   width: 180px;
   height: 40px;
