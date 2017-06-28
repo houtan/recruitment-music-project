@@ -5,8 +5,7 @@ angular.module("app").controller("musicCtrl",
 	$scope.cachedData = [];
 	$scope.cachedData.all = [];
 	$scope.result = {};
-	$scope.result.artists = [];
-	$scope.result.albums = [];
+	$scope.result.all = [];
 	$scope.length = 12;
 	$scope.artistName = '';
 	$scope.tracks = {};
@@ -52,8 +51,6 @@ angular.module("app").controller("musicCtrl",
 	
 	$scope.resetValues = function () {
 	  $scope.errorMessage = '';
-	  $scope.result.artists = [];
-	  $scope.result.albums = [];
 	  $scope.result.all = [];
 	  $scope.cachedData = [];
 	  $scope.cachedData.all = [];
